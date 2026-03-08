@@ -1,0 +1,99 @@
+{
+  "name": "ISC OAuth Clients Connector",
+  "keyType": "simple",
+  "commands": [
+    "std:test-connection",
+    "std:account:list",
+    "std:entitlement:list"
+  ],
+  "sourceConfig": [
+    {
+      "type": "menu",
+      "label": "Configuration",
+      "items": [
+        {
+          "type": "section",
+          "sectionTitle": "ISC Connection",
+          "items": [
+            {
+              "key": "baseUrl",
+              "label": "ISC Tenant URL",
+              "type": "url",
+              "required": true,
+              "helpText": "Your ISC tenant API base URL, e.g. https://tenant.api.identitynow.com"
+            },
+            {
+              "key": "clientId",
+              "label": "Client ID",
+              "type": "text",
+              "required": true,
+              "helpText": "OAuth client ID for connector authentication"
+            },
+            {
+              "key": "clientSecret",
+              "label": "Client Secret",
+              "type": "secret",
+              "required": true,
+              "helpText": "OAuth client secret for connector authentication"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accountSchema": {
+    "displayAttribute": "name",
+    "identityAttribute": "id",
+    "groupAttribute": "scopes",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": "OAuth client ID (unique anchor)"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "OAuth client display name"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "OAuth client description"
+      },
+      {
+        "name": "grantTypes",
+        "type": "string",
+        "multi": true,
+        "description": "OAuth 2.0 grant types (e.g. CLIENT_CREDENTIALS, AUTHORIZATION_CODE)"
+      },
+      {
+        "name": "scopes",
+        "type": "string",
+        "multi": true,
+        "entitlement": true,
+        "managed": true,
+        "description": "Granted ISC API scopes (the governance unit for certification)"
+      }
+    ]
+  },
+  "entitlementSchemas": [
+    {
+      "type": "group",
+      "displayAttribute": "name",
+      "identityAttribute": "id",
+      "attributes": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": "Scope identifier string (e.g. sp:scopes:all, idn:access-request:read)"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Scope display name (same as id — no enrichment catalog available)"
+        }
+      ]
+    }
+  ]
+}
