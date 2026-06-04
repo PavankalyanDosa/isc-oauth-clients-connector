@@ -849,7 +849,24 @@ Report bugs with:
 
 ## License
 
-This project is licensed under the SailPoint Developer License Agreement.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### MIT License Summary
+
+You are free to:
+- ✅ Use this software for any purpose
+- ✅ Copy, modify, and distribute the software
+- ✅ Include the software in proprietary applications
+- ✅ Use the software privately or commercially
+
+**Conditions**:
+- ⚠️ You must include a copy of the license and copyright notice
+- ⚠️ You must document significant changes to the code
+
+**Limitations**:
+- ❌ The software is provided "as is" with no warranty
+- ❌ The authors are not liable for any damages or claims
+- ❌ No trademark rights are granted
 
 ## Changelog
 

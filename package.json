@@ -1,6 +1,13 @@
 {
   "name": "isc-oauth-clients-connector",
   "version": "0.1.0",
+  "description": "ISC OAuth 2.0 Clients Connector for SailPoint Identity Security Cloud with stateful delta synchronization",
+  "author": "Pavankalyan Dosa",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PavankalyanDosa/isc-oauth-clients-connector.git"
+  },
   "main": "dist/index.js",
   "scripts": {
     "clean": "shx rm -rf ./dist",
