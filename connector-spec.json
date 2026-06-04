@@ -4,12 +4,14 @@
   "commands": [
     "std:test-connection",
     {
-      "type": "std:account:list",
+      "name": "std:account:list",
       "stateful": true
     },
     "std:account:read",
     "std:entitlement:list"
   ],
+  "supportsStatefulCommands": true,
+  "showDebugLoggingOption": true,
   "sourceConfig": [
     {
       "type": "menu",
