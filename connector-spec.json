@@ -3,7 +3,10 @@
   "keyType": "simple",
   "commands": [
     "std:test-connection",
-    "std:account:list",
+    {
+      "type": "std:account:list",
+      "stateful": true
+    },
     "std:account:read",
     "std:entitlement:list"
   ],
