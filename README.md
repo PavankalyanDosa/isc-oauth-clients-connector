@@ -1,10 +1,6 @@
 # ISC OAuth Clients Connector
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![npm version](https://img.shields.io/badge/npm-not%20published-lightgrey.svg)]()
-
 A SailPoint Identity Security Cloud (ISC) SaaS connector that enables account aggregation and provisioning of OAuth 2.0 clients from your ISC tenant. This connector supports stateful delta synchronization for efficient account list operations and comprehensive OAuth client lifecycle management.
-
-TL;DR: Aggregates OAuth clients from ISC, maps scopes as entitlements, and supports stateful delta synchronization (`std:account:list` with `stateful: true`) to reduce aggregation bandwidth and processing.
 
 ## Table of Contents
 

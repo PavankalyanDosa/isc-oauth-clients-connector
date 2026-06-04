@@ -1,59 +1,59 @@
 {
-  "name": "isc-oauth-clients-connector",
-  "version": "0.1.0",
-  "description": "ISC OAuth 2.0 Clients Connector for SailPoint Identity Security Cloud with stateful delta synchronization",
-  "author": "Pavankalyan Dosa",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/PavankalyanDosa/isc-oauth-clients-connector.git"
-  },
-  "main": "dist/index.js",
-  "scripts": {
-    "clean": "shx rm -rf ./dist",
-    "prebuild": "npm run clean",
-    "build": "npx ncc build ./src/index.ts -o ./dist -m -C",
-    "dev": "cross-env NODE_OPTIONS=--enable-source-maps spcx run dist/index.js",
-    "debug": "spcx run dist/index.js",
-    "prettier": "npx prettier --write .",
-    "test": "jest --coverage",
-    "prepack-zip": "npm ci && npm run build",
-    "pack-zip": "spcx package"
-  },
-  "private": true,
-  "dependencies": {
-    "@sailpoint/connector-sdk": "^1.0.0",
-    "sailpoint-api-client": "^1.7.14"
-  },
-  "devDependencies": {
-    "@types/jest": "^27.0.1",
-    "@vercel/ncc": "^0.38.1",
-    "cross-env": "7.0.3",
-    "jest": "^27.0.6",
-    "prettier": "^2.3.2",
-    "shx": "^0.3.3",
-    "ts-jest": "^27.0.5",
-    "typescript": "^4.9.5"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "clearMocks": true,
-    "collectCoverage": true,
-    "coverageThreshold": {
-      "global": {
-        "statements": 60,
-        "branches": 50,
-        "functions": 40,
-        "lines": 60
-      }
+    "name": "isc-oauth-clients-connector",
+    "version": "0.1.0",
+    "description": "ISC OAuth 2.0 Clients Connector for SailPoint Identity Security Cloud with stateful delta synchronization",
+    "author": "Pavankalyan Dosa",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/PavankalyanDosa/isc-oauth-clients-connector.git"
+    },
+    "main": "dist/index.js",
+    "scripts": {
+        "clean": "shx rm -rf ./dist",
+        "prebuild": "npm run clean",
+        "build": "npx ncc build ./src/index.ts -o ./dist -m -C",
+        "dev": "cross-env NODE_OPTIONS=--enable-source-maps spcx run dist/index.js",
+        "debug": "spcx run dist/index.js",
+        "prettier": "npx prettier --write .",
+        "test": "jest --coverage",
+        "prepack-zip": "npm ci && npm run build",
+        "pack-zip": "spcx package"
+    },
+    "private": true,
+    "dependencies": {
+        "@sailpoint/connector-sdk": "^1.0.0",
+        "sailpoint-api-client": "^1.7.14"
+    },
+    "devDependencies": {
+        "@types/jest": "^27.0.1",
+        "@vercel/ncc": "^0.38.1",
+        "cross-env": "7.0.3",
+        "jest": "^27.0.6",
+        "prettier": "^2.3.2",
+        "shx": "^0.3.3",
+        "ts-jest": "^27.0.5",
+        "typescript": "^4.9.5"
+    },
+    "jest": {
+        "preset": "ts-jest",
+        "testEnvironment": "node",
+        "clearMocks": true,
+        "collectCoverage": true,
+        "coverageThreshold": {
+            "global": {
+                "statements": 60,
+                "branches": 50,
+                "functions": 40,
+                "lines": 60
+            }
+        }
+    },
+    "prettier": {
+        "printWidth": 120,
+        "trailingComma": "es5",
+        "tabWidth": 4,
+        "semi": false,
+        "singleQuote": true
     }
-  },
-  "prettier": {
-    "printWidth": 120,
-    "trailingComma": "es5",
-    "tabWidth": 4,
-    "semi": false,
-    "singleQuote": true
-  }
 }
