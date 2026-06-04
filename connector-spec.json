@@ -1,191 +1,202 @@
 {
-  "name": "ISC OAuth Clients Connector",
-  "keyType": "simple",
-  "commands": [
-    "std:test-connection",
-    {
-      "name": "std:account:list",
-      "stateful": true
-    },
-    "std:account:read",
-    "std:entitlement:list"
-  ],
-  "supportsStatefulCommands": true,
-  "showDebugLoggingOption": true,
-  "sourceConfig": [
-    {
-      "type": "menu",
-      "label": "Configuration",
-      "items": [
+    "name": "ISC OAuth Clients Connector",
+    "keyType": "simple",
+    "commands": ["std:test-connection", "std:account:list", "std:account:read", "std:entitlement:list"],
+    "supportsStatefulCommands": true,
+    "showDebugLoggingOption": true,
+    "sourceConfig": [
         {
-          "type": "section",
-          "sectionTitle": "ISC Connection",
-          "items": [
+            "type": "menu",
+            "label": "Configuration",
+            "items": [
+                {
+                    "type": "section",
+                    "sectionTitle": "ISC Connection",
+                    "items": [
+                        {
+                            "key": "baseUrl",
+                            "label": "ISC Tenant URL",
+                            "type": "url",
+                            "required": true,
+                            "helpText": "Your ISC tenant API base URL, e.g. https://tenant.api.identitynow.com"
+                        },
+                        {
+                            "key": "clientId",
+                            "label": "Client ID",
+                            "type": "text",
+                            "required": true,
+                            "helpText": "OAuth client ID for connector authentication"
+                        },
+                        {
+                            "key": "clientSecret",
+                            "label": "Client Secret",
+                            "type": "secret",
+                            "required": true,
+                            "helpText": "OAuth client secret for connector authentication"
+                        }
+                    ],
+                {
+                    "type": "section",
+                    "sectionTitle": "Aggregation",
+                    "items": [
+                        {
+                            "key": "spConnEnableStatefulCommands",
+                            "label": "Enable Stateful (Delta) Aggregation",
+                            "type": "checkbox",
+                            "required": false,
+                            "helpText": "Enable delta (stateful) aggregation for std:account:list. When enabled, the connector should call res.saveState() to persist state between runs."
+                        },
+                        {
+                            "key": "account.filterString",
+                            "label": "Account Filter String",
+                            "type": "text",
+                            "required": false,
+                            "helpText": "Optional filter expression applied to accounts during aggregation. Use to skip unwanted accounts." 
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "accountSchema": {
+        "displayAttribute": "name",
+        "identityAttribute": "id",
+        "groupAttribute": "scopes",
+        "attributes": [
             {
-              "key": "baseUrl",
-              "label": "ISC Tenant URL",
-              "type": "url",
-              "required": true,
-              "helpText": "Your ISC tenant API base URL, e.g. https://tenant.api.identitynow.com"
+                "name": "id",
+                "type": "string",
+                "description": "OAuth client ID (unique anchor)"
             },
             {
-              "key": "clientId",
-              "label": "Client ID",
-              "type": "text",
-              "required": true,
-              "helpText": "OAuth client ID for connector authentication"
+                "name": "name",
+                "type": "string",
+                "description": "OAuth client display name"
             },
             {
-              "key": "clientSecret",
-              "label": "Client Secret",
-              "type": "secret",
-              "required": true,
-              "helpText": "OAuth client secret for connector authentication"
+                "name": "description",
+                "type": "string",
+                "description": "OAuth client description"
+            },
+            {
+                "name": "enabled",
+                "type": "boolean",
+                "description": "Whether the OAuth client is enabled"
+            },
+            {
+                "name": "type",
+                "type": "string",
+                "description": "OAuth client type, such as CONFIDENTIAL or PUBLIC"
+            },
+            {
+                "name": "grantTypes",
+                "type": "string",
+                "multi": true,
+                "description": "OAuth 2.0 grant types (e.g. CLIENT_CREDENTIALS, AUTHORIZATION_CODE)"
+            },
+            {
+                "name": "scopes",
+                "type": "string",
+                "multi": true,
+                "entitlement": true,
+                "managed": true,
+                "description": "Granted ISC API scopes (the governance unit for certification)"
+            },
+            {
+                "name": "accessType",
+                "type": "string",
+                "description": "Access type assigned to the OAuth client"
+            },
+            {
+                "name": "created",
+                "type": "string",
+                "description": "When the OAuth client was created"
+            },
+            {
+                "name": "modified",
+                "type": "string",
+                "description": "When the OAuth client was last modified"
+            },
+            {
+                "name": "lastUsed",
+                "type": "string",
+                "description": "When the OAuth client was last used"
+            },
+            {
+                "name": "consentRequired",
+                "type": "boolean",
+                "description": "Whether user consent is required for the OAuth client"
+            },
+            {
+                "name": "claimsSupported",
+                "type": "boolean",
+                "description": "Whether claims are supported by the OAuth client"
+            },
+            {
+                "name": "strongAuthSupported",
+                "type": "boolean",
+                "description": "Whether strong authentication is supported"
+            },
+            {
+                "name": "accessTokenValiditySeconds",
+                "type": "int",
+                "description": "Access token lifetime in seconds"
+            },
+            {
+                "name": "refreshTokenValiditySeconds",
+                "type": "int",
+                "description": "Refresh token lifetime in seconds"
+            },
+            {
+                "name": "internal",
+                "type": "boolean",
+                "description": "Whether the OAuth client is marked as internal"
+            },
+            {
+                "name": "metadata",
+                "type": "string",
+                "description": "Serialized metadata for the OAuth client"
+            },
+            {
+                "name": "integrationId",
+                "type": "string",
+                "description": "Integration identifier associated with the OAuth client"
+            },
+            {
+                "name": "businessName",
+                "type": "string",
+                "description": "Business owner or business-facing name for the OAuth client"
+            },
+            {
+                "name": "homepageUrl",
+                "type": "string",
+                "description": "Homepage URL registered for the OAuth client"
+            },
+            {
+                "name": "redirectUris",
+                "type": "string",
+                "multi": true,
+                "description": "Redirect URIs registered for the OAuth client"
             }
-          ]
+        ]
+    },
+    "entitlementSchemas": [
+        {
+            "type": "group",
+            "displayAttribute": "name",
+            "identityAttribute": "id",
+            "attributes": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "description": "Scope identifier string (e.g. sp:scopes:all, idn:access-request:read)"
+                },
+                {
+                    "name": "name",
+                    "type": "string",
+                    "description": "Scope display name (same as id — no enrichment catalog available)"
+                }
+            ]
         }
-      ]
-    }
-  ],
-  "accountSchema": {
-    "displayAttribute": "name",
-    "identityAttribute": "id",
-    "groupAttribute": "scopes",
-    "attributes": [
-      {
-        "name": "id",
-        "type": "string",
-        "description": "OAuth client ID (unique anchor)"
-      },
-      {
-        "name": "name",
-        "type": "string",
-        "description": "OAuth client display name"
-      },
-      {
-        "name": "description",
-        "type": "string",
-        "description": "OAuth client description"
-      },
-      {
-        "name": "enabled",
-        "type": "boolean",
-        "description": "Whether the OAuth client is enabled"
-      },
-      {
-        "name": "type",
-        "type": "string",
-        "description": "OAuth client type, such as CONFIDENTIAL or PUBLIC"
-      },
-      {
-        "name": "grantTypes",
-        "type": "string",
-        "multi": true,
-        "description": "OAuth 2.0 grant types (e.g. CLIENT_CREDENTIALS, AUTHORIZATION_CODE)"
-      },
-      {
-        "name": "scopes",
-        "type": "string",
-        "multi": true,
-        "entitlement": true,
-        "managed": true,
-        "description": "Granted ISC API scopes (the governance unit for certification)"
-      },
-      {
-        "name": "accessType",
-        "type": "string",
-        "description": "Access type assigned to the OAuth client"
-      },
-      {
-        "name": "created",
-        "type": "string",
-        "description": "When the OAuth client was created"
-      },
-      {
-        "name": "modified",
-        "type": "string",
-        "description": "When the OAuth client was last modified"
-      },
-      {
-        "name": "lastUsed",
-        "type": "string",
-        "description": "When the OAuth client was last used"
-      },
-      {
-        "name": "consentRequired",
-        "type": "boolean",
-        "description": "Whether user consent is required for the OAuth client"
-      },
-      {
-        "name": "claimsSupported",
-        "type": "boolean",
-        "description": "Whether claims are supported by the OAuth client"
-      },
-      {
-        "name": "strongAuthSupported",
-        "type": "boolean",
-        "description": "Whether strong authentication is supported"
-      },
-      {
-        "name": "accessTokenValiditySeconds",
-        "type": "int",
-        "description": "Access token lifetime in seconds"
-      },
-      {
-        "name": "refreshTokenValiditySeconds",
-        "type": "int",
-        "description": "Refresh token lifetime in seconds"
-      },
-      {
-        "name": "internal",
-        "type": "boolean",
-        "description": "Whether the OAuth client is marked as internal"
-      },
-      {
-        "name": "metadata",
-        "type": "string",
-        "description": "Serialized metadata for the OAuth client"
-      },
-      {
-        "name": "integrationId",
-        "type": "string",
-        "description": "Integration identifier associated with the OAuth client"
-      },
-      {
-        "name": "businessName",
-        "type": "string",
-        "description": "Business owner or business-facing name for the OAuth client"
-      },
-      {
-        "name": "homepageUrl",
-        "type": "string",
-        "description": "Homepage URL registered for the OAuth client"
-      },
-      {
-        "name": "redirectUris",
-        "type": "string",
-        "multi": true,
-        "description": "Redirect URIs registered for the OAuth client"
-      }
     ]
-  },
-  "entitlementSchemas": [
-    {
-      "type": "group",
-      "displayAttribute": "name",
-      "identityAttribute": "id",
-      "attributes": [
-        {
-          "name": "id",
-          "type": "string",
-          "description": "Scope identifier string (e.g. sp:scopes:all, idn:access-request:read)"
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "description": "Scope display name (same as id — no enrichment catalog available)"
-        }
-      ]
-    }
-  ]
 }
