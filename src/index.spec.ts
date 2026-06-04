@@ -6,6 +6,7 @@ import {
     ResponseType,
     StandardCommand,
     StdAccountListOutput,
+    StdAccountReadOutput,
     StdEntitlementListOutput,
 } from '@sailpoint/connector-sdk'
 import { PassThrough } from 'stream'
@@ -43,17 +44,18 @@ const createContext = () => ({
     },
 })
 
-const collectResponses = async (command: StandardCommand): Promise<RawResponse[]> => {
+const collectResponses = async (command: StandardCommand, input?: unknown): Promise<RawResponse[]> => {
     const responses: RawResponse[] = []
     const output = new PassThrough({ objectMode: true }).on('data', (chunk) => responses.push(chunk as RawResponse))
 
-    await (await connector())._exec(command, createContext(), undefined, output)
+    await (await connector())._exec(command, createContext(), input, output)
 
     return responses
 }
 
 const mockTestConnection = jest.fn()
 const mockListAccounts = jest.fn()
+const mockReadAccount = jest.fn()
 const mockListEntitlements = jest.fn()
 
 describe('connector parity', () => {
@@ -62,6 +64,7 @@ describe('connector parity', () => {
         ;(ISCApiClient as jest.Mock).mockReset()
         mockTestConnection.mockReset()
         mockListAccounts.mockReset()
+        mockReadAccount.mockReset()
         mockListEntitlements.mockReset()
 
         mockReadConfig.mockResolvedValue({
@@ -74,6 +77,7 @@ describe('connector parity', () => {
             oauthClients: {
                 testConnection: mockTestConnection,
                 listAccounts: mockListAccounts,
+                readAccount: mockReadAccount,
             },
             scopes: {
                 listEntitlements: mockListEntitlements,
@@ -146,6 +150,30 @@ describe('connector parity', () => {
         ])
         expect(mockListEntitlements).toHaveBeenCalledTimes(1)
         expect(ServiceFactory.create).toHaveBeenCalled()
+    })
+
+    it('executes std:account:read and returns a single mapped account', async () => {
+        const account: StdAccountReadOutput = {
+            key: { simple: { id: 'client-1' } },
+            disabled: false,
+            locked: false,
+            attributes: {
+                id: 'client-1',
+                name: 'Client One',
+                description: 'Desc',
+                businessName: 'Biz',
+                scopes: ['sp:search:read'],
+            },
+        }
+
+        mockReadAccount.mockResolvedValue(account)
+
+        const responses = await collectResponses(StandardCommand.StdAccountRead, {
+            key: { simple: { id: 'client-1' } },
+        })
+
+        expect(responses).toStrictEqual([new RawResponse(account, ResponseType.Output)])
+        expect(mockReadAccount).toHaveBeenCalledWith('client-1')
     })
 
     it('executes the real service factory path and derives unique entitlements from account outputs', async () => {

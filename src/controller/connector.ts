@@ -15,6 +15,11 @@ export const connector = async () => {
                 res.send(account)
             }
         })
+        .stdAccountRead(async (_context, input, res) => {
+            const id = 'simple' in input.key ? input.key.simple.id : input.identity
+            const account = await services.oauthClients.readAccount(id)
+            res.send(account)
+        })
         .stdEntitlementList(async (context, input, res) => {
             for await (const scope of services.scopes.listEntitlements()) {
                 res.send(scope)

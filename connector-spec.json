@@ -4,6 +4,7 @@
   "commands": [
     "std:test-connection",
     "std:account:list",
+    "std:account:read",
     "std:entitlement:list"
   ],
   "sourceConfig": [
@@ -62,6 +63,16 @@
         "description": "OAuth client description"
       },
       {
+        "name": "enabled",
+        "type": "boolean",
+        "description": "Whether the OAuth client is enabled"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": "OAuth client type, such as CONFIDENTIAL or PUBLIC"
+      },
+      {
         "name": "grantTypes",
         "type": "string",
         "multi": true,
@@ -74,6 +85,82 @@
         "entitlement": true,
         "managed": true,
         "description": "Granted ISC API scopes (the governance unit for certification)"
+      },
+      {
+        "name": "accessType",
+        "type": "string",
+        "description": "Access type assigned to the OAuth client"
+      },
+      {
+        "name": "created",
+        "type": "string",
+        "description": "When the OAuth client was created"
+      },
+      {
+        "name": "modified",
+        "type": "string",
+        "description": "When the OAuth client was last modified"
+      },
+      {
+        "name": "lastUsed",
+        "type": "string",
+        "description": "When the OAuth client was last used"
+      },
+      {
+        "name": "consentRequired",
+        "type": "boolean",
+        "description": "Whether user consent is required for the OAuth client"
+      },
+      {
+        "name": "claimsSupported",
+        "type": "boolean",
+        "description": "Whether claims are supported by the OAuth client"
+      },
+      {
+        "name": "strongAuthSupported",
+        "type": "boolean",
+        "description": "Whether strong authentication is supported"
+      },
+      {
+        "name": "accessTokenValiditySeconds",
+        "type": "int",
+        "description": "Access token lifetime in seconds"
+      },
+      {
+        "name": "refreshTokenValiditySeconds",
+        "type": "int",
+        "description": "Refresh token lifetime in seconds"
+      },
+      {
+        "name": "internal",
+        "type": "boolean",
+        "description": "Whether the OAuth client is marked as internal"
+      },
+      {
+        "name": "metadata",
+        "type": "string",
+        "description": "Serialized metadata for the OAuth client"
+      },
+      {
+        "name": "integrationId",
+        "type": "string",
+        "description": "Integration identifier associated with the OAuth client"
+      },
+      {
+        "name": "businessName",
+        "type": "string",
+        "description": "Business owner or business-facing name for the OAuth client"
+      },
+      {
+        "name": "homepageUrl",
+        "type": "string",
+        "description": "Homepage URL registered for the OAuth client"
+      },
+      {
+        "name": "redirectUris",
+        "type": "string",
+        "multi": true,
+        "description": "Redirect URIs registered for the OAuth client"
       }
     ]
   },
