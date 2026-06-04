@@ -1,4 +1,4 @@
-import { createConnector, readConfig } from '@sailpoint/connector-sdk'
+import { createConnector, readConfig, StdAccountReadInput } from '@sailpoint/connector-sdk'
 import { ServiceFactory } from '../services/ServiceFactory'
 
 export const connector = async () => {
@@ -15,8 +15,9 @@ export const connector = async () => {
                 res.send(account)
             }
         })
-        .stdAccountRead(async (_context, input, res) => {
-            const id = 'simple' in input.key ? input.key.simple.id : input.identity
+        .stdAccountRead(async (_context, rawInput, res) => {
+            const input = rawInput as StdAccountReadInput & { key: { simple?: { id?: string } } }
+            const id = input.key.simple?.id ?? input.identity
             const account = await services.oauthClients.readAccount(id)
             res.send(account)
         })

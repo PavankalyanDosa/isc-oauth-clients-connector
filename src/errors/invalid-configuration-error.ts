@@ -1,6 +1,8 @@
 import { ConnectorError, ConnectorErrorType } from '@sailpoint/connector-sdk'
 
-const INVALID_CONFIGURATION = 'invalidConfiguration' as unknown as ConnectorErrorType
+const INVALID_CONFIGURATION =
+    (ConnectorErrorType as typeof ConnectorErrorType & { InvalidConfiguration?: ConnectorErrorType })
+        .InvalidConfiguration ?? ('invalidConfiguration' as ConnectorErrorType)
 
 export class InvalidConfigurationError extends ConnectorError {
     constructor(message: string) {
