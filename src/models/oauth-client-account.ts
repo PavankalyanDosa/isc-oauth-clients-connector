@@ -52,7 +52,7 @@ export class OAuthClientAccount {
         account.id = raw.id
         account.name = raw.name ?? raw.id    // fallback to id if name is absent
         account.description = raw.description ?? ''
-        account.enabled = raw.enabled ?? false
+        account.enabled = raw.enabled ?? true
         account.type = raw.type ?? ''
         account.grantTypes = raw.grantTypes ?? []
         account.scopes = raw.scope ?? []     // API field is "scope" (singular)

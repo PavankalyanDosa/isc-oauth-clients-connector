@@ -16,8 +16,8 @@ export const connector = async () => {
             }
         })
         .stdAccountRead(async (_context, rawInput, res) => {
-            const input = rawInput as StdAccountReadInput & { key: { simple?: { id?: string } } }
-            const id = input.key.simple?.id ?? input.identity
+            const input = rawInput as StdAccountReadInput & { key?: { simple?: { id?: string } } }
+            const id = input.key?.simple?.id ?? input.identity
             const account = await services.oauthClients.readAccount(id)
             res.send(account)
         })

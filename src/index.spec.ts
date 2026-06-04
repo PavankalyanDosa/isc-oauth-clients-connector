@@ -176,6 +176,28 @@ describe('connector parity', () => {
         expect(mockReadAccount).toHaveBeenCalledWith('client-1')
     })
 
+    it('executes std:account:read using identity when key is absent', async () => {
+        const account: StdAccountReadOutput = {
+            key: { simple: { id: 'client-identity' } },
+            disabled: false,
+            locked: false,
+            attributes: {
+                id: 'client-identity',
+                name: 'Client Identity',
+                scopes: [],
+            },
+        }
+
+        mockReadAccount.mockResolvedValue(account)
+
+        const responses = await collectResponses(StandardCommand.StdAccountRead, {
+            identity: 'client-identity',
+        })
+
+        expect(responses).toStrictEqual([new RawResponse(account, ResponseType.Output)])
+        expect(mockReadAccount).toHaveBeenCalledWith('client-identity')
+    })
+
     it('executes the real service factory path and derives unique entitlements from account outputs', async () => {
         const actualFactory = jest.requireActual('./services/ServiceFactory') as typeof import('./services/ServiceFactory')
         const config = {

@@ -194,12 +194,12 @@ describe('ISC API client', () => {
         })
         expect(minimal.toStdAccountReadOutput()).toMatchObject({
             key: { simple: { id: 'client-2' } },
-            disabled: true,
+            disabled: false,
             locked: false,
             attributes: {
                 name: '',
                 description: '',
-                enabled: false,
+                enabled: true,
                 grantTypes: [],
                 scopes: [],
                 metadata: '',
