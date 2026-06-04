@@ -34,7 +34,8 @@
                             "required": true,
                             "helpText": "OAuth client secret for connector authentication"
                         }
-                    ],
+                    ]
+                },
                 {
                     "type": "section",
                     "sectionTitle": "Aggregation",
@@ -45,13 +46,6 @@
                             "type": "checkbox",
                             "required": false,
                             "helpText": "Enable delta (stateful) aggregation for std:account:list. When enabled, the connector should call res.saveState() to persist state between runs."
-                        },
-                        {
-                            "key": "account.filterString",
-                            "label": "Account Filter String",
-                            "type": "text",
-                            "required": false,
-                            "helpText": "Optional filter expression applied to accounts during aggregation. Use to skip unwanted accounts." 
                         }
                     ]
                 }
